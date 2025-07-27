@@ -1,133 +1,171 @@
-📌 🎥 IMDb Movie Finder (LLM + LangChain + FastAPI)
+🎥 IMDb Movie Finder (LLM + LangChain + FastAPI)
+Welcome to the IMDb Movie Finder! This application allows you to query movies using natural language, leveraging the power of Large Language Models (LLMs) and semantic search.
 
-🚀 Features:
-✅ Query movies using natural language
-✅ Supports year, genre, and actor filters
-✅ Uses LangChain + ChromaDB for semantic search
-✅ Conversational memory for follow-up questions
+✨ Features
+Natural Language Queries: Ask for movies using everyday language.
 
-🛠️ Setup Instructions
+Intelligent Filtering: Supports filtering by year, genre, and actors.
 
-1️⃣ Activate Conda Environment
-👉 You need the correct Python environment to run the backend.
+Semantic Search: Powered by LangChain and ChromaDB for highly relevant results.
 
-🔹 Run this in your terminal (anywhere):
+Conversational Memory: The AI remembers previous interactions for seamless follow-up questions.
 
-python -m venv venv
-source venv/bin/activate 
+🚀 Getting Started
+Follow these steps to set up and run the IMDb Movie Finder on your local machine.
 
+1. 🐍 Python Environment Setup (Crucial!)
 
+It's essential to use a compatible Python version (like 3.11) for all the AI/ML libraries.
 
+Deactivate any active Conda environment:
+
+<!-- conda deactivate -->
+conda deactivate
+
+Check existing environments:
+
+<!-- conda info --envs -->
+conda info --envs
+
+If llm-imdb-py311 exists: Proceed to activate it.
+
+If llm-imdb-py311 does NOT exist: Create it first:
+
+<!-- conda create -n llm-imdb-py311 python=3.11 -y -->
+conda create -n llm-imdb-py311 python=3.11 -y
+
+Activate the environment:
+
+<!-- conda activate llm-imdb-py311 -->
 conda activate llm-imdb-py311
 
-✅ Why: This ensures you're using Python 3.11 with all required packages for the backend.
+✅ Verify Python Version:
 
-🔹 Verify Python version:
-
+<!-- python --version -->
 python --version
 
-✅ Expected: Python 3.11.x
+Expected Output: Python 3.11.x
 
-2️⃣ Setup Backend (FastAPI)
-📂 Navigate to backend folder:
+⚠️ Important: If you see anything other than 3.11.x (e.g., 3.13.x), STOP and re-do the environment creation steps. This is the most common source of installation issues for torch and related libraries.
 
+2. ⚙️ Backend Setup (FastAPI)
+
+The backend handles the LLM processing and movie data retrieval.
+
+Navigate to the backend folder:
+
+<!-- cd /Users/surya.prakash1/Downloads/testing 2/LLM-IMDB/backend -->
 cd /Users/surya.prakash1/Downloads/testing 2/LLM-IMDB/backend
-🔹 Install Python dependencies:
 
+Install Python dependencies:
+
+<!-- pip install -r requirements.txt -->
 pip install -r requirements.txt
 
-✅ Why: Installs FastAPI, LangChain, OpenAI SDK, ChromaDB, etc.
+Troubleshooting torch installation: If you encounter errors related to torch (e.g., No matching distribution found), try installing it specifically for CPU:
 
+<!-- pip install torch==2.2.2 --index-url https://download.pytorch.org/whl/cpu -->
+pip install torch==2.2.2 --index-url https://download.pytorch.org/whl/cpu
 
-🔹 Build the Vector Store (important step):
+Then, you might need to re-run pip install -r requirements.txt or manually install other missing packages (e.g., pip install sentence-transformers chromadb langchain-openai langchain-chroma).
 
+Build the Vector Store (Important!):
+This step processes your movie data and creates the searchable database.
+
+<!-- python vector_store.py -->
 python vector_store.py
 
-⚠️ If PyTorch gives an error:
+Note: This might take some time depending on the size of your dataset.
 
-pip install torch==2.2.2 --index-url https://download.pytorch.org/whl/cpu
-🔹 Start the backend server:
+🚀 Start the Backend Server:
 
+<!-- uvicorn main:app --reload --port 8000 -->
 uvicorn main:app --reload --port 8000
-✅ Why: Runs the FastAPI backend that processes movie queries.
 
-📌 Keep this terminal window open.
+Keep this terminal window open. The server needs to be running for the frontend to work.
 
-3️⃣ Setup Frontend (React)
-📂 Open a new terminal tab/window and navigate to frontend:
+3. 🖥️ Frontend Setup (React)
 
+The frontend provides the user interface for interacting with the movie finder.
+
+Open a new terminal tab/window.
+(Keep the backend server running in the first terminal.)
+
+Navigate to the frontend folder:
+
+<!-- cd /Users/surya.prakash1/Downloads/testing 2/LLM-IMDB/imdb-frontend -->
 cd /Users/surya.prakash1/Downloads/testing 2/LLM-IMDB/imdb-frontend
-🔹 Install Node.js dependencies:
 
+Install Node.js dependencies:
+
+<!-- npm install -->
 npm install
-✅ Why: Installs React, Axios, and other frontend libraries.
 
-🔹 Start the React app:
+Note: You only need to run this once, or if your package.json changes.
 
+🚀 Start the React App:
+
+<!-- npm start -->
 npm start
-✅ Why: Runs the web interface to interact with the backend.
 
-4️⃣ Test the App
-Open: http://localhost:3000 in your browser
-Try example queries:
-Show me some comedy movies
-Movies with Leonardo DiCaprio
-Best action thrillers with Keanu Reeves
-📌 Folder & Command Summary
+This will usually open your web browser to http://localhost:3000.
 
-Activate Environment: (Anywhere)
-conda activate llm-imdb-py311
-Backend: (LLM-IMDB/backend)
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
-Frontend: (LLM-IMDB/imdb-frontend)
-npm install
-npm start
-🔍 Why install these?
+🎬 Test the Application
+Once both the backend and frontend servers are running:
 
-FastAPI → Backend server for API requests.
-LangChain → LLM orchestration for movie queries.
-OpenAI → Uses GPT model to understand questions.
-ChromaDB → Stores and retrieves movie embeddings.
-React → Frontend UI for user interaction.
+Open your web browser and go to: http://localhost:3000
 
+Try out some queries!
 
+Example Queries:
 
+🎭 By Genre:
 
+"Show me some comedy movies"
 
+"Find thriller films"
 
-# ✅ Example Queries You Can Type
-# These work without any code changes, assuming you're using basic similarity_search():
+"List top romantic movies"
 
-# 🎭 By Genre
-# "Show me some comedy movies"
+👤 By Actor / Star:
 
-# "Find thriller films"
+"Movies with Leonardo DiCaprio"
 
-# "List top romantic movies"
+"Show films starring Natalie Portman"
 
-# 👤 By Actor / Star
-# "Movies with Leonardo DiCaprio"
+🧠 By Plot/Theme:
 
-# "Show films starring Natalie Portman"
+"Time travel science fiction movies"
 
-# 🎬 By Director (if available in metadata — check your dataset)
-# "Movies directed by Christopher Nolan" (Only if director info is part of the text)
+"Movies about survival in space"
 
-# 🧠 By Plot/Theme
-# "Time travel science fiction movies"
+"Psychological thrillers with a twist ending"
 
-# "Movies about survival in space"
+🗓️ By Year:
 
-# "Psychological thrillers with a twist ending"
+"Movies released in 2019"
 
-# 🗓️ By Time/Year
-# "Movies released after 2015" (Only works well if year info is embedded in text — you can add it if not)
+"Films from 1994"
 
-# 🔁 Combination Filters
-# "Romantic dramas with Tom Hanks"
+🔁 Combination Filters:
 
-# "Best action thrillers with Keanu Reeves"
+"Romantic dramas with Tom Hanks"
 
-# "Underrated war movies"
+"Best action thrillers with Keanu Reeves"
 
+🛠️ Technologies Used
+FastAPI: High-performance web framework for the backend API.
+
+LangChain: Framework for developing applications powered by language models.
+
+OpenAI: Provides the GPT model for natural language understanding and generation.
+
+ChromaDB: An open-source embedding database for storing and querying movie data.
+
+React: A JavaScript library for building the user interface.
+
+Uvicorn: ASGI server to run the FastAPI application.
+
+Node.js / npm: JavaScript runtime and package manager for the frontend.
+
+PyTorch: Underlying deep learning library used by embedding models (e.g., sentence-transformers).
