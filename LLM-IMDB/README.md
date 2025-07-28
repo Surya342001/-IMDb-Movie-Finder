@@ -164,8 +164,11 @@ ChromaDB: An open-source embedding database for storing and querying movie data.
 
 React: A JavaScript library for building the user interface.
 
+
 Uvicorn: ASGI server to run the FastAPI application.
 
 Node.js / npm: JavaScript runtime and package manager for the frontend.
 
 PyTorch: Underlying deep learning library used by embedding models (e.g., sentence-transformers).
+
+<img width="1420" height="784" alt="recommendation" src="https://github.com/user-attachments/assets/88db25ed-c2ec-421e-912c-89b56b945dcf" />
